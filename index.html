@@ -3,25 +3,26 @@
 <head>
     <style type="text/css">
     body{
+       
         margin: auto;
         
        
     }
     #asteroid{
-      
+      border: 1px solid red;
     }
     #shooter{
     background: url('target_icon.png');
     position: absolute;
-    z-index: 60;
-    display: block;
+    z-index: 600000000;
+     border: 1px solid red;
     height: 254px;
     width: 257px;
   
     }
     #container{
-       
-        position: relative;
+       /* cursor: url('target_icon_32.png') pointer;*/
+        position: absolute;
         min-height: 700px;
         width: 100%;
        
@@ -49,13 +50,14 @@
         height: 768px;
     } 
     .asteroid{  
+         border: 1px solid red;
         margin-right: 40px;
          position: relative;
          float :left;
        
         background: url('asteroid.png');
        
-        z-index: 20;
+        z-index: 11111111;
     }
     .big{/*-webkit-background-size: 40px 40px;
          -moz-background-size: 40px 40px;
@@ -120,27 +122,94 @@
     </div>            
 </body>
 <script type="text/javascript">
-$(document).ready(function(){
+$(document).ready(function(){ 
+
+    $('#shooter').click(function(){ 
+     var pos = [] 
+      shpos = $(this).position();
+                     shx= shpos.left 
+                     shy=shpos.top 
+      var shH = $(this).height();
+      var shW = $(this).width(); 
+     $('.asteroid').each(function(index){  
+                   $(this).attr('id' ,'ast_'+  parseInt(index+1))
+                   pos.push([$(this).attr('id'), 
+                    $(this).position() ,
+                    $(this).width() ,
+                    $(this).height() ]); 
+                    
+
+                })
+
+     $.each(pos,function(i,v){
+        var asteroid ;
+
+
+          //console.log( v[2]/2 );
+          //console.log( v[1].left/2 +v[2]/2);
+          console.log( parseFloat((v[1].left-shx) / ((shW)-(v[2]))).toFixed(2));
+          console.log( parseFloat((v[1].top-shy) / ((shH)-(v[3]))).toFixed(2));
+          //console.log( shx/2 )
+          //console.log( shy )
+
+     })
+                    
+               
+               console.log(pos); 
+
+
+
+           //  console.log(x-shx);
+
+      //$('this').on('click',function(){
+            
+
+
+             //console.log(x-shx);
+
+            //     })
+            
+                       })
   function init(){
+// $('.asteroid').each(function(){
 
-var tl = new TimelineMax({onUpdate:function(){console.log(
-    $('.asteroid').each(function(){
-         console.log($(this).position());
-
-    })
+  
 
 
+var tl = new TimelineMax({onUpdate:function(){
 
-    )}});
+   // $('.asteroid').each(function(){
+      // $('.asteroid').live('click',function(){
+
+      //        pos = $(this).position();
+      //                x= pos.left 
+      //                y=pos.top 
+                  
+      //               shpos = $('#shooter').position(); 
+      //               shX = shpos.left
+      //               shY = shpos.top 
+
+      //        console.log(x-shX);
+
+
+  //    })
+        
+      
+
+    // })
+
+
+
+    }});
 //console.log(tl);
-tl.insert(TweenMax.to(".big", 2, {  top:"470px", ease:Power4.easeInOut ,repeat : 100 }))
-tl.insert(  TweenMax.to(".small", 2, {  top:"470px", ease:Power4.easeInOut ,repeat : 20}))    
-tl.insert(  TweenMax.to(".medium", 2, {  top:"470px", ease:Power4.easeInOut,repeat : 40}))    
-tl.insert(TweenMax.to(".big", 2, {  top:"470px", ease:Power4.easeOutIn ,repeat : 100}))    
+tl.insert(TweenMax.to(".big", 7, {  top:"470px", ease:Power4.easeInOut ,repeat : 100 }))
+tl.insert(  TweenMax.to(".small", 6, {  top:"470px", ease:Power4.easeInOut ,repeat : 20}))    
+tl.insert(  TweenMax.to(".medium", 5, {  top:"470px", ease:Power4.easeInOut,repeat : 40}))    
+tl.insert(TweenMax.to(".big", 4, {  top:"470px", ease:Power4.easeOutIn ,repeat : 100}))    
 //tl.onUpdate(function(){console.log('ss')})
 
 
-  tl.play()    
+ // tl.play()    
 tl.addCallback(function(){ console.log('sssssss'); }, .1);
     
       
@@ -148,7 +217,7 @@ tl.addCallback(function(){ console.log('sssssss'); }, .1);
      // TweenMax.to(".medium", 6, {  top:"470px", ease:Power4.easeOutIn,repeat : 40});
     // console.log(TweenMax.getAllTweens())
 }
-init() ;
+//init() ;
  
        
 $('.asteroid').each(function(index, value){
@@ -156,13 +225,12 @@ $('.asteroid').each(function(index, value){
 })
         
 })
-function moveCursor(e){ 
-    var shooter = document.getElementById('shooter') ;
-    shooter.style.left =e.x-124 +"px" ;
-    shooter.style.top =e.y-99 +"px" ;
-   // console.log(e.x ,e.y);
-    //$('#shooter').css({'top':mouseY-172,'left':mouseX-180})
-}
-   document.onmousemove = moveCursor;
+
+                                    $(document).mousemove(function(e){
+                                            mouseX =e.pageX; 
+                                            mouseY =e.pageY; 
+                                             $('#shooter').css({'top':mouseY-122,'left':mouseX-160})
+                                            
+                                      })
 </script>
 </html>
