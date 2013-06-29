@@ -9,13 +9,13 @@
        
     }
     #asteroid{
-      border: 1px solid red;
+      /*border: 1px solid red;*/
     }
     #shooter{
     background: url('target_icon.png');
     position: absolute;
     z-index: 600000000;
-     border: 1px solid red;
+   /*  border: 1px solid red;*/
     height: 254px;
     width: 257px;
   
@@ -50,12 +50,22 @@
         height: 768px;
     } 
     .asteroid{  
-         border: 1px solid red;
+    /*     border: 1px solid red;*/
         margin-right: 40px;
          position: relative;
          float :left;
        
         background: url('asteroid.png');
+       
+        z-index: 11111111;
+    }
+    .explode{  
+    /*     border: 1px solid red;*/
+        margin-right: 40px;
+         position: relative;
+         float :left;
+       
+        background: url('explode.gif');
        
         z-index: 11111111;
     }
@@ -111,17 +121,48 @@
                <div   class="medium asteroid"></div>
                <div  class="small asteroid"></div>
               
-               <div class="big asteroid"></div>
-               <div  class="medium asteroid"></div>
-               <div  class="small asteroid"></div>
-               <div  class="big asteroid"></div>
-                <div  class="small asteroid"></div>
-               <div  class="big asteroid"></div>
+               
+                <div   class="medium asteroid"></div>
 
           <div id="earth" ></div>     
     </div>            
 </body>
 <script type="text/javascript">
+
+function checkShooted(size,x,y )
+{ 
+
+    if(size=="small"){ 
+         if( (x < 0.53 && x >0.45) && (y < 0.47 && y >0.42))
+                     {
+                      return true ;
+                       
+                    }else{
+                        return false
+                    }
+     }
+    if(size=="big"){ 
+         if( (x < 0.73 && x >0.44) && (y < 0.50 && y >0.25))
+                     {
+                      return true ;
+                       
+                    }else{
+                        return false
+                    }
+     }
+    if(size=="medium"){ 
+           if( (x < 0.58 && x >0.42) && (y < 0.53 && y >0.34))
+                    {
+                      return true ;
+                       
+                    }else{
+                        return false
+                    }
+     }
+    
+            
+}
+
 $(document).ready(function(){ 
 
     $('#shooter').click(function(){ 
@@ -131,12 +172,18 @@ $(document).ready(function(){
                      shy=shpos.top 
       var shH = $(this).height();
       var shW = $(this).width(); 
-     $('.asteroid').each(function(index){  
+     $('.asteroid').each(function(index){ 
+
+
+                   
+                   
                    $(this).attr('id' ,'ast_'+  parseInt(index+1))
                    pos.push([$(this).attr('id'), 
                     $(this).position() ,
-                    $(this).width() ,
-                    $(this).height() ]); 
+                    $(this).width(),
+                    $(this).height(),
+                    $(this).attr('class').split(' ')[0]   ]
+                    ); 
                     
 
                 })
@@ -149,6 +196,41 @@ $(document).ready(function(){
           //console.log( v[1].left/2 +v[2]/2);
           console.log( parseFloat((v[1].left-shx) / ((shW)-(v[2]))).toFixed(2));
           console.log( parseFloat((v[1].top-shy) / ((shH)-(v[3]))).toFixed(2));
+
+          var overlapX = parseFloat((v[1].left-shx) / ((shW)-(v[2]))).toFixed(2)
+          var overlapY = parseFloat((v[1].top-shy) / ((shH)-(v[3]))).toFixed(2)
+
+          console.log(v[4]);
+
+      if(checkShooted(v[4],overlapX,overlapY)) {
+        //alert($("#"+v[0]).attr('id'))
+           $("#"+v[0]).removeClass("asteroid").addClass("explode");; 
+            setTimeout(function(){
+                $("#"+v[0]).remove()  } ,470) 
+
+            
+
+      }
+
+          // switch(){
+          //      case  'medium' :
+          //           if(overlapX < 0.57 && overlapX >0.42 && (overlapX < 0.57 && overlapX >0.42)
+          //           {
+          //              // alert('Shooted')
+          //           }
+
+          //     //   break ;
+          //      case : 'big'    
+
+          //        if(overlapX < 0.57 && overlapX >0.42)
+          //           {
+          //               //alert('Shooted')
+          //           }
+          //      // break ; 
+          // }
+
+          // if((overlapX > ) && (overlapY))
+          
           //console.log( shx/2 )
           //console.log( shy )
 
@@ -176,40 +258,28 @@ $(document).ready(function(){
   
 
 
-var tl = new TimelineMax({onUpdate:function(){
-
-   // $('.asteroid').each(function(){
-      // $('.asteroid').live('click',function(){
-
-      //        pos = $(this).position();
-      //                x= pos.left 
-      //                y=pos.top 
-                  
-      //               shpos = $('#shooter').position(); 
-      //               shX = shpos.left
-      //               shY = shpos.top 
-
-      //        console.log(x-shX);
-
-
-  //    })
-        
-      
-
-    // })
-
-
-
-    }});
+var tl = new TimelineMax({globalTimeScale :3.5 });
 //console.log(tl);
-tl.insert(TweenMax.to(".big", 7, {  top:"470px", ease:Power4.easeInOut ,repeat : 100 }))
-tl.insert(  TweenMax.to(".small", 6, {  top:"470px", ease:Power4.easeInOut ,repeat : 20}))    
-tl.insert(  TweenMax.to(".medium", 5, {  top:"470px", ease:Power4.easeInOut,repeat : 40}))    
-tl.insert(TweenMax.to(".big", 4, {  top:"470px", ease:Power4.easeOutIn ,repeat : 100}))    
+tl.insert(TweenMax.to(".big", 10, {  top:"470px", ease:Power2.easeInOut ,repeat : 100 }))
+tl.insert(  TweenMax.to(".small", 12, {  top:"470px", ease:Power2.easeInOut ,repeat : 20}))    
+tl.insert(  TweenMax.to(".medium", 11, {  top:"470px", ease:Power2.easeInOut,repeat : 40}))    
+tl.insert(TweenMax.to(".big", 4, {  top:"470px", ease:Power2.easeOutIn ,repeat : 100}))    
 //tl.onUpdate(function(){console.log('ss')})
+ $(document).mousemove(function(e){
+                                            mouseX =parseInt(e.pageX-160)+"px"; 
+                                            mouseY =parseInt(e.pageY-122)+"px"; 
+                                           //  $('#shooter').css({'top':mouseY-122,'left':mouseX-160})
+                                      
+                                           console.log(mouseX,mouseY);
+                                      tl.insert(
+                                        TweenMax.to(
+                                            "#shooter",
+                                             0.2, 
+                                             {  top:mouseY ,left:mouseX ,ease:Power4.easeInOut}))
+                                            
+                                      })
 
-
- // tl.play()    
+  tl.play()    
 tl.addCallback(function(){ console.log('sssssss'); }, .1);
     
       
@@ -217,7 +287,7 @@ tl.addCallback(function(){ console.log('sssssss'); }, .1);
      // TweenMax.to(".medium", 6, {  top:"470px", ease:Power4.easeOutIn,repeat : 40});
     // console.log(TweenMax.getAllTweens())
 }
-//init() ;
+init() ;
  
        
 $('.asteroid').each(function(index, value){
@@ -226,11 +296,6 @@ $('.asteroid').each(function(index, value){
         
 })
 
-                                    $(document).mousemove(function(e){
-                                            mouseX =e.pageX; 
-                                            mouseY =e.pageY; 
-                                             $('#shooter').css({'top':mouseY-122,'left':mouseX-160})
-                                            
-                                      })
+                                   
 </script>
 </html>
