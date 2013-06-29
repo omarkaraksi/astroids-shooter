@@ -123,7 +123,7 @@
                <div  class="big asteroid"></div>
                <div   class="medium asteroid"></div>
                <div  class="small asteroid"></div>
-              
+               <div  class="big asteroid"></div>
                
                 <div   class="medium asteroid"></div>
 
@@ -136,7 +136,7 @@ function checkShooted(size,x,y )
 { 
 
     if(size=="small"){ 
-         if( (x < 0.53 && x >0.45) && (y < 0.47 && y >0.42))
+         if( (x < 0.53 && x >0.45) && (y < 0.39 && y >0.43))
                      {
                       return true ;
                        
@@ -145,7 +145,7 @@ function checkShooted(size,x,y )
                     }
      }
     if(size=="big"){ 
-         if( (x < 0.73 && x >0.44) && (y < 0.50 && y >0.25))
+         if( (x < 0.71 && x >0.28) && (y < 0.70 && y >0.18))
                      {
                       return true ;
                        
@@ -154,7 +154,7 @@ function checkShooted(size,x,y )
                     }
      }
     if(size=="medium"){ 
-           if( (x < 0.58 && x >0.42) && (y < 0.53 && y >0.34))
+           if( (x < 0.58 && x >0.42) && (y < 0.50 && y >0.39))
                     {
                       return true ;
                        
@@ -167,7 +167,15 @@ function checkShooted(size,x,y )
 }
 
 $(document).ready(function(){ 
-
+       $(document).mousemove(function(e){
+                                            mouseX =e.pageX-160
+                                            mouseY =e.pageY-122
+                                        //   $('#shooter').css({'top':mouseY,'left':mouseX})
+                                      
+                                         //  console.log(mouseX,mouseY);
+                                     
+                                        
+                                      }) 
     $('#shooter').click(function(){ 
      var pos = [] 
       shpos = $(this).position();
@@ -239,7 +247,7 @@ $(document).ready(function(){
 
      })
                     
-               
+        
                console.log(pos); 
 
 
