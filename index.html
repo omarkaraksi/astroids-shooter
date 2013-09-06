@@ -5,7 +5,7 @@
     body{
        
         margin: auto;
-        
+        overflow: hidden;
        
     }
     #asteroid{
@@ -23,9 +23,10 @@
     #container{
        /* cursor: url('target_icon_32.png') pointer;*/
         position: absolute;
-        min-height: 700px;
+        min-height: 100%;
         width: 100%;
-       
+       margin: auto;
+
         display: block;
          background: url("sky.png");
         -webkit-background-size: cover;
@@ -36,64 +37,110 @@
          margin-top: 0 !important;
         
 
-    } #earth{
-        top: 0;
-        bottom: 0px;
-        position: relative;
-        background: url('ground.png');
+    }
+    .pre{
+       background: none repeat scroll 0 0 rgba(1, 1, 1, 0.7);
+    display: block;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    z-index: 2147483647;
 
-        z-index: 21;
-        border: 1px red solid;
+    }
+    
+.pre h1 {
+  color: red;
+    left: 37%;
+    margin: auto;
+    position: absolute;
+    text-align: center;
+    top: 12%;
+    z-index: 909848921111111;
+}
+    .pre > button{
+    font-size: 20pt;
+    font-family: monospace ; 
+    display: block;
+    height: 81px;
+    left: 42%;
+    position: absolute;
+    top: 40%;
+    width: 295px;
+    z-index: 2147483647;
+    }
+     #earth{
+       
+        bottom: 0;
+        position: absolute;
+        background: url('ground2.png');
+         -webkit-background-size: cover;
+         -moz-background-size: cover;
+         -o-background-size: cover;
+         background-size: cover;
+         
+        z-index: 21111111111111;
+      
        
         width: 100%;
         display: block;
-        height: 768px;
+        height: 222px;
     } 
     .asteroid{  
     /*     border: 1px solid red;*/
         margin-right: 40px;
          position: relative;
          float :left;
-       
-        background: url('asteroid.png');
+        margin: auto 10px auto auto;
+        /*background: url('asteroid.png');*/
        
         z-index: 11111111;
     }
     .explode{  
-    /*     border: 1px solid red;*/
+       /*border: 1px solid red;*/
         margin-right: 40px;
          position: relative;
          float :left;
+       width:100px;
+       height: 100px;
+        background-size: cover;
+        background: url('explode.png') ;
        
-        background: url('explode.gif');
-       
-        z-index: 11111111;
+        z-index: 1111119999232222222;
     }
     .big{/*-webkit-background-size: 40px 40px;
          -moz-background-size: 40px 40px;
          -o-background-size: 40px 40px;*/
-         margin-top:10px;
+        
          background-size: 90px 90px;
         width: 90px;
         height: 90px;
+         background: url('enemy2.png');
     }
 
      .medium{/*-webkit-background-size: 40px 40px;
          -moz-background-size: 40px 40px;
          -o-background-size: 40px 40px;*/
-        margin-top:14px;
-        background-size: 40px 40px;
-        width: 40px;
-        height: 40px;
+        background: url('enemy1.png');
+        background-size: 60px 60px;
+        width: 60px;
+        height: 60px;
     }
 
       .small{/*-webkit-background-size: 40px 40px;
          -moz-background-size: 40px 40px;
          -o-background-size: 40px 40px;*/
-         margin-top:12px;
-         background-size: 25px 25px;
-        width: 25px;
-        height: 25px;
+         background: url('asteroid.png');
+         background-size: 35px 35px;
+        width: 35px;
+        height: 35px;
+    }
+    #timer{
+       font-family: cursive;
+    font-size: 44pt;
+    left: 43%;
+    margin: auto;
+    position: relative;
+    top: 63%;
     }
     </style>
 
@@ -104,17 +151,30 @@
 
 </head>
 <body>
-  
+  <div class="pre">  
+      <button id="start" value="Start!!!" > Start!!!</button>
+      <h1> ((( ANTI MILITARY COUP ))) <br>
+         Save The Earth !! <br>
+      They Are Many ... But You CAN !! </h1>
+  </div>
     <div id="container">
+
                <div id="shooter"> </div>
+               <div  class="small asteroid"></div>
                <div  class="big asteroid"></div>
                <div   class="medium asteroid"></div>
                <div  class="small asteroid"></div>
                <div  class="big asteroid"></div>
                <div  class="small asteroid"></div>
-                <div  class="big asteroid"></div>
+               <div  class="big asteroid"></div>
                <div  class="small asteroid"></div>
-             
+               <div  class="small asteroid"></div> 
+               <div  class="medium asteroid"></div>
+               <div  class="medium asteroid"></div>
+               <div  class="small asteroid"></div>
+               <div  class="big asteroid"></div>
+               <div  class="small asteroid"></div>
+               <div  class="small asteroid"></div> 
                <div  class="medium asteroid"></div>
                <div  class="medium asteroid"></div>
                <div  class="small asteroid"></div>
@@ -127,16 +187,18 @@
                
                 <div   class="medium asteroid"></div>
 
-          <div id="earth" ></div>     
+          <div id="earth" >
+            <div  id="timer" >0 Days</div>
+          </div>     
     </div>            
 </body>
 <script type="text/javascript">
 
 function checkShooted(size,x,y )
 { 
-
+  
     if(size=="small"){ 
-         if( (x < 0.53 && x >0.45) && (y < 0.39 && y >0.43))
+         if( (x < 0.56 && x >0.45) && (y < 0.85 && y >0.38))
                      {
                       return true ;
                        
@@ -154,8 +216,10 @@ function checkShooted(size,x,y )
                     }
      }
     if(size=="medium"){ 
-           if( (x < 0.58 && x >0.42) && (y < 0.50 && y >0.39))
+           if( (x < 0.58 && x >0.42) && (y < 0.80 && y >0.39))
                     {
+                      console.log(x,y,'done');
+                     // console.log();
                       return true ;
                        
                     }else{
@@ -166,11 +230,27 @@ function checkShooted(size,x,y )
             
 }
 
+var seconds = 0 ;
+ 
 $(document).ready(function(){ 
+var tl = new TimelineMax({globalTimeScale :6.6 });
+ $("#start").click(function(){
+    setInterval(function(){ 
+  seconds++ ;
+   $('#timer').html(seconds +" Days ")},6300);
+ tl.restart()
+      init();
+      $('.pre').hide()
+
+   
+
+ }) 
+
+ 
        $(document).mousemove(function(e){
                                             mouseX =e.pageX-160
                                             mouseY =e.pageY-122
-                                        //   $('#shooter').css({'top':mouseY,'left':mouseX})
+                                           $('#shooter').css({'top':mouseY,'left':mouseX})
                                       
                                          //  console.log(mouseX,mouseY);
                                      
@@ -182,7 +262,14 @@ $(document).ready(function(){
                      shx= shpos.left 
                      shy=shpos.top 
       var shH = $(this).height();
-      var shW = $(this).width(); 
+      var shW = $(this).width();
+
+      if($('.asteroid').length==0){
+       $('.pre').show();
+       $('h1').html("Hero You Made It In "+$('#timer').html()+" !!" )
+       //$('#timer').hide()
+       
+    } 
      $('.asteroid').each(function(index){ 
 
 
@@ -193,7 +280,9 @@ $(document).ready(function(){
                     $(this).position() ,
                     $(this).width(),
                     $(this).height(),
-                    $(this).attr('class').split(' ')[0]   ]
+                    $(this).attr('class').split(' ')[0],
+                    $(this).attr('class').split(' ')[1]
+                       ]
                     ); 
                     
 
@@ -205,19 +294,32 @@ $(document).ready(function(){
 
           //console.log( v[2]/2 );
           //console.log( v[1].left/2 +v[2]/2);
-          console.log( parseFloat((v[1].left-shx) / ((shW)-(v[2]))).toFixed(2));
-          console.log( parseFloat((v[1].top-shy) / ((shH)-(v[3]))).toFixed(2));
+         // console.log( parseFloat((v[1].left-shx) / ((shW)-(v[2]))).toFixed(2));
+        //  console.log( parseFloat((v[1].top-shy) / ((shH)-(v[3]))).toFixed(2));
 
           var overlapX = parseFloat((v[1].left-shx) / ((shW)-(v[2]))).toFixed(2)
           var overlapY = parseFloat((v[1].top-shy) / ((shH)-(v[3]))).toFixed(2)
 
           console.log(v[4]);
-
+          console.log(v[5]+"sss");
       if(checkShooted(v[4],overlapX,overlapY)) {
         //alert($("#"+v[0]).attr('id'))
-           $("#"+v[0]).removeClass("asteroid").addClass("explode");; 
+        // alert(v[4])
+        // alert(v[5])
+            if($('.asteroid').length==0){
+           $('.pre').show();
+           $('h1').html("Hero You Made It In "+$('#timer').html()+" !!" )
+       //$('#timer').hide()
+       
+             } 
+           
+           $("#"+v[0]).removeClass('asteroid').removeClass('big').removeClass('small').removeClass('medium')
+           $("#"+v[0]).addClass("explode")
             setTimeout(function(){
-                $("#"+v[0]).remove()  } ,470) 
+              $("#"+v[0]).css('width', 240);
+              $("#"+v[0]).css('height' ,240);
+              
+                $("#"+v[0]).remove()  } ,730) 
 
             
 
@@ -248,7 +350,7 @@ $(document).ready(function(){
      })
                     
         
-               console.log(pos); 
+             //  console.log(pos); 
 
 
 
@@ -263,40 +365,74 @@ $(document).ready(function(){
             //     })
             
                        })
+
+
+function randSpeed(start , end){
+  //console.log( Math.floor((Math.random()*end )+start));
+  return  Math.floor((Math.random()*end )+start);
+
+}
+
+
+var speed = [];
+var finalSpeed  =7;
+var inc = 0;
+ function  repeatCallBack()
+  {     
+
+       finalSpeed =speed[inc++]    
+      // console.log(finalSpeed); 
+  }
+
+  function repeater(){
+    for(i=0;i<6;i++)speed.push( randSpeed(7,9) )
+  }
   function init(){
+
+   repeater() 
 // $('.asteroid').each(function(){
 
   
 
 
-var tl = new TimelineMax({globalTimeScale :3.5 });
+   // $('.astroid').css({'top':'0px'}) 
+ 
+
+ // tl.restart()var speed ;  
 //console.log(tl);
-tl.insert(TweenMax.to(".big", 10, {  top:"470px", ease:Power2.easeInOut ,repeat : 100 }))
-tl.insert(  TweenMax.to(".small", 12, {  top:"470px", ease:Power2.easeInOut ,repeat : 20}))    
-tl.insert(  TweenMax.to(".medium", 11, {  top:"470px", ease:Power2.easeInOut,repeat : 40}))    
-tl.insert(TweenMax.to(".big", 4, {  top:"470px", ease:Power2.easeOutIn ,repeat : 100}))    
+ 
+
+
+tl.insert(  TweenMax.to(".big", finalSpeed, { top:"700px", ease:Power2.easeInOut ,repeat : 100 
+,onRepeat : repeatCallBack
+}))
+ 
+tl.insert(  TweenMax.to(".small", finalSpeed+2, {  top:"600px", ease:Power2.easeInOut ,repeat : 20,onRepeat : repeatCallBack
+}))    
+tl.insert(  TweenMax.to(".medium", finalSpeed+1, {  top:"680px", ease:Power2.easeInOut,repeat : 40,onRepeat : repeatCallBack
+}))    
+//tl.add(TweenMax.to(".big", 4, {  top:"470px", ease:Power2.easeOutIn ,repeat : 100}))    
 //tl.onUpdate(function(){console.log('ss')})
  $(document).mousemove(function(e){
                                             mouseX =parseInt(e.pageX-160)+"px"; 
                                             mouseY =parseInt(e.pageY-122)+"px"; 
                                            //  $('#shooter').css({'top':mouseY-122,'left':mouseX-160})
                                       
-                                           console.log(mouseX,mouseY);
-                                      tl.insert(
-                                        TweenMax.to(
+                                          // console.log(mouseX,mouseY);
+                                      
+                                       tl.insert(  TweenMax.to(
                                             "#shooter",
-                                             0.2, 
+                                             0.002, 
                                              {  top:mouseY ,left:mouseX ,ease:Power4.easeInOut}))
                                             
                                       })
 
+ // console.log(tl);
+ //  tl.clear()
+ // // console.log(TweenMax); 
+
   tl.play()    
-tl.addCallback(function(){ console.log('sssssss'); }, .1);
-    
-      
-     // TweenMax.to(".small", 4, {  top:"470px", ease:Power4.easeOutIn ,repeat : 20});
-     // TweenMax.to(".medium", 6, {  top:"470px", ease:Power4.easeOutIn,repeat : 40});
-    // console.log(TweenMax.getAllTweens())
+
 }
 init() ;
  
